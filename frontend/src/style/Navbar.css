@@ -1,0 +1,48 @@
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 20px 40px;
+    color: #fff;
+}
+
+.navTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navList {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.navListItem {
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.navListItem:hover {
+    color: #ffffffac;
+}
+
+@media screen and (max-width: 768px) {
+    .navContainer {
+        padding: 10px 20px;
+    }
+
+    .navTitle {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .navList {
+        gap: 10px;
+    }
+
+    .navListItem {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,62 @@
+.listContainer {
+    padding: 20px 40px;
+    overflow-y: auto;
+}
+
+.taskList {
+    display: grid;
+    list-style: none;
+    gap: 10px;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    min-width: 30rem;
+    grid-template-columns: 50px 1fr 2fr 150px;
+}
+
+.listHeader {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.listItem {
+    padding: 5px 0;
+    text-align: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.deleteButton {
+    background-color: red;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+.deleteButton:hover {
+    background-color: rgb(255, 81, 0);
+}
+
+.updateButton {
+    background-color: green;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.updateButton:hover {
+    background-color: rgb(0, 177, 3);
+}
+
+@media screen and (max-width: 768px) {
+    .navContainer {
+        padding: 10px 20px;
+    }
+}
