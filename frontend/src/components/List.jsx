@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 const List = () => {
     const [data, setData] = useState()
+    const [selectedTask, setSelectedTask] = useState([])
     const getData = async () => {
         let result = await fetch("http://localhost:3200/tasks")
         result = await result.json()
@@ -23,11 +24,43 @@ const List = () => {
             getData()
         }
     }
-    console.log(data)
+
+    const handleDeleteMultiple = async () => {
+        let item = await fetch("http://localhost:3200/delete-mul", {
+            method: "Delete",
+            body: JSON.stringify({ ids: selectedTask }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        item = await item.json()
+        if (item.success) {
+            alert("Task deleted successfully")
+            getData()
+        }
+    }
+    // console.log(data)
+    const handleAllCheack = (e) => {
+        if (e.target.checked) {
+            setSelectedTask(data?.map((item) => item._id))
+        } else {
+            setSelectedTask([])
+        }
+    }
     return (
         <div className='listContainer'>
             <h1>List</h1>
+            {
+                selectedTask.length > 0 && <button onClick={() => handleDeleteMultiple(selectedTask)}>Delete</button>
+            }
             <ul className='taskList'>
+                <li className='listHeader'>
+                    <input
+                        type="checkbox"
+                        onChange={handleAllCheack}
+                        checked={selectedTask.length == data?.length}
+                    />
+                </li>
                 <li className='listHeader'>S.L</li>
                 <li className='listHeader'>Title</li>
                 <li className='listHeader'>Description</li>
@@ -36,6 +69,19 @@ const List = () => {
                     data && data.map((item, index) => {
                         return (
                             <React.Fragment key={item._id}>
+                                <li className='listItem'>
+                                    <input
+                                        type="checkbox"
+                                        onChange={(e) => {
+                                            if (e.target.checked) {
+                                                setSelectedTask([...selectedTask, item._id])
+                                            } else {
+                                                setSelectedTask(selectedTask.filter((id) => id !== item._id))
+                                            }
+                                        }}
+                                        checked={selectedTask.includes(item._id)}
+                                    />
+                                </li>
                                 <li className='listItem'>{index + 1}</li>
                                 <li className='listItem'>{item?.title}</li>
                                 <li className='listItem'>{item?.description}</li>

@@ -50,6 +50,21 @@ app.delete("/tasks/:id", async (req, res) => {
         res.send({ message: "Try again After Some Time", success: false })
     }
 })
+
+app.delete("/delete-mul", async (req, res) => {
+    const Ids = req.body.ids;
+    // console.log(Ids)
+    const deleteTaskIds = Ids.map(item => new ObjectId(item))
+    const db = await connection();
+    const collection = await db.collection(collectionName)
+    const result = await collection.deleteMany({ _id: { $in: deleteTaskIds } })
+    if (result) {
+        res.send({ message: "Task deleted", success: true, result })
+    } else {
+        res.send({ message: "Something went wrong!", success: false })
+    }
+
+})
 // update Start
 app.get("/task/:id", async (req, res) => {
     const id = req.params.id;
